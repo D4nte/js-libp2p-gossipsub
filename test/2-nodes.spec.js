@@ -94,7 +94,7 @@ describe('2 nodes', () => {
 
     // Create pubsub nodes
     beforeEach(async () => {
-      nodes = await createConnectedGossipsubs({ number: 2 })
+      nodes = await createConnectedGossipsubs({ number: 2, options: { globalSignaturePolicy: 'StrictNoSign' } })
     })
 
     // Create subscriptions
@@ -123,7 +123,7 @@ describe('2 nodes', () => {
       const msg = await promise
 
       expect(msg.data.toString()).to.equal('hey')
-      expect(msg.from).to.be.eql(nodes[0].peerId.toB58String())
+      // expect(msg.from).to.be.eql(nodes[0].peerId.toB58String())
 
       nodes[0].removeListener(topic, shouldNotHappen)
     })
@@ -137,7 +137,7 @@ describe('2 nodes', () => {
       const msg = await promise
 
       expect(msg.data.toString()).to.equal('banana')
-      expect(msg.from).to.be.eql(nodes[1].peerId.toB58String())
+      // expect(msg.from).to.be.eql(nodes[1].peerId.toB58String())
 
       nodes[1].removeListener(topic, shouldNotHappen)
     })
@@ -151,8 +151,8 @@ describe('2 nodes', () => {
 
       function receivedMsg (msg) {
         expect(msg.data.toString()).to.equal('banana')
-        expect(msg.from).to.be.eql(nodes[1].peerId.toB58String())
-        expect(msg.seqno).to.be.a('Uint8Array')
+        // expect(msg.from).to.be.eql(nodes[1].peerId.toB58String())
+        // expect(msg.seqno).to.be.a('Uint8Array')
         expect(msg.topicIDs).to.be.eql([topic])
 
         if (++counter === 10) {
